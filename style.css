@@ -1,0 +1,61 @@
+body{
+    margin: inherit;
+}
+.container {
+    position: relative;
+    margin: auto;
+    width: 661px;
+    height: 763px ;
+    background-color: black;
+}
+
+.container_style{
+    margin: 0px 78px 0 78px ;
+}
+
+.input {
+    margin-top: 5%;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 480px;
+    height: 40px;
+    outline: none;
+}
+
+ul {
+    margin: 0 auto;
+    padding: 0;
+    width: 500px;
+}
+
+.autoLi {
+    display: grid;
+    background-color: white;
+    margin: 1px;
+    padding: 3%;
+    cursor: pointer;
+
+}
+
+.infoRep {
+    display: flex;
+    background-color: white;
+    margin: 5% 0;
+    padding: 3%;
+    border-radius: 2%;
+}
+
+
+.close-btn {
+    margin-left: auto;
+    width: 45px;
+    background-image: url("close.svg");
+    background-repeat: no-repeat;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: black;
+}
