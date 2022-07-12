@@ -21,6 +21,7 @@ const infoEl = document.getElementById("info")
  * @type {*[]}
  */
 let dataBase = []
+let isFetch = true
 
 /**
  * Метод используется для получения репозиториев
@@ -29,18 +30,19 @@ let dataBase = []
 async function getReps(event) {
     if (event.target.value.length > 1) {
         let url = CONTEXT_PATH + event.target.value + '&per_page=5&page=1'
-        const reps = (await fetch(url, {
-            headers: {
-                Authorization: "token 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",
-                Accept: "application/vnd.github+json"
-            }
-        })).json()
-        reps.then(val => {
-            dataBase = val.items
-            fillAutocomplete(dataBase)
-        })
+        if (isFetch) {
+            isFetch = false
+            setTimeout(async () => {
+                const reps = (await fetch(url)).json()
+                reps.then(val => {
+                    dataBase = val.items
+                    fillAutocomplete(dataBase)
+                    isFetch = true
+                })
+            } ,1000)
+        }
     } else {
-        for(let item of autoComplete.querySelectorAll('li')){
+        for (let item of autoComplete.querySelectorAll('li')) {
             autoComplete.removeChild(item)
         }
 
@@ -77,21 +79,21 @@ const closeInfo = (elem) => (event) => {
  * @param textContent название репозитория
  */
 function addInfo(textContent) {
-        let findEl = dataBase.find(elem => elem.name == textContent)
-        let childrens = infoEl.querySelectorAll('div')
-        let html = divInfo(findEl)
-        if (childrens.length < 3) {
-            infoEl.innerHTML += html
-        } else {
-            infoEl.removeChild(childrens[0])
-            infoEl.innerHTML += html
-        }
-        autoComplete.innerHTML = ''
-        inp.value = ''
-        childrens = infoEl.querySelectorAll('div')
-        for (let ch of childrens) {
-            ch.querySelector("button").onclick = closeInfo(ch)
-        }
+    let findEl = dataBase.find(elem => elem.name == textContent)
+    let childrens = infoEl.querySelectorAll('div')
+    let html = divInfo(findEl)
+    if (childrens.length < 3) {
+        infoEl.innerHTML += html
+    } else {
+        infoEl.removeChild(childrens[0])
+        infoEl.innerHTML += html
+    }
+    autoComplete.innerHTML = ''
+    inp.value = ''
+    childrens = infoEl.querySelectorAll('div')
+    for (let ch of childrens) {
+        ch.querySelector("button").onclick = closeInfo(ch)
+    }
 }
 
 /**
