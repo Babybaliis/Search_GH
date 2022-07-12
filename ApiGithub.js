@@ -31,7 +31,7 @@ async function getReps(event) {
         let url = CONTEXT_PATH + event.target.value + '&per_page=5&page=1'
         const reps = (await fetch(url, {
             headers: {
-                Authorization: "token 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",
+                Authorization: "token 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",
                 Accept: "application/vnd.github+json"
             }
         })).json()
